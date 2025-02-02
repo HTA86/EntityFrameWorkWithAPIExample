@@ -8,14 +8,27 @@ namespace WebApiServer.Controllers
     [Route("api/v1/[controller]")]
     public class GamesController(IGamesRepository _gamesRepository) : ControllerBase
     {
+        // Hämta alla spel eller filtrera via title
         [HttpGet]
-        public async Task <ActionResult<IEnumerable<GameEntity>>> GetGamesAsync()
+        public async Task<ActionResult<IEnumerable<GameEntity>>> GetGamesAsync([FromQuery] string? title)
         {
-            var games = await _gamesRepository.GetAllGamesAsync();
-            if (games is null)
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                // Om title är specificerat, filtrera på det
+                var games = await _gamesRepository.GetGameByTitleAsync(title);
+                if (games is null)
+                    return NotFound($"Inga spel hittades med titeln: {title}");
+
+                return Ok(games);
+            }
+
+            // Om inget title ges, hämta alla spel
+            var allGames = await _gamesRepository.GetAllGamesAsync();
+            if (allGames is null)
                 return BadRequest("Inga spel i databas.");
 
-            return Ok(games);
+            return Ok(allGames);
         }
 
         [HttpGet("{id}")]
@@ -28,18 +41,5 @@ namespace WebApiServer.Controllers
             return Ok(games);
         }
 
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<GameEntity>>> GetGameByTitleAsync([FromQuery] string title)
-        {
-            Console.WriteLine($"Söker efter spel med titel: {title}");
-            if (string.IsNullOrEmpty(title))
-                return BadRequest("Title is required for search.");
-
-            var games = await _gamesRepository.GetGameByTitleAsync(title);
-            if (games is null)
-                return BadRequest("Spelet hittades inte");
-
-            return Ok(games);
-        }
     }
 }
