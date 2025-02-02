@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApiServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class APIController(IGamesRepository _gamesRepository) : ControllerBase
+    [Route("api/v1/[controller]")]
+    public class GamesController(IGamesRepository _gamesRepository) : ControllerBase
     {
-        [HttpGet("allgames")]
+        [HttpGet]
         public async Task <ActionResult<IEnumerable<GameEntity>>> GetGamesAsync()
         {
             var games = await _gamesRepository.GetAllGamesAsync();
@@ -18,7 +18,7 @@ namespace WebApiServer.Controllers
             return Ok(games);
         }
 
-        [HttpGet("gamebyid/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<GameEntity>>> GetGameByIdAsync(int id)
         {
             var games = await _gamesRepository.GetGameByIdAsync(id);
@@ -28,9 +28,13 @@ namespace WebApiServer.Controllers
             return Ok(games);
         }
 
-        [HttpGet("gamebyname/{title}")]
-        public async Task<ActionResult<IEnumerable<GameEntity>>> GetGameByTitleAsync(string title)
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<GameEntity>>> GetGameByTitleAsync([FromQuery] string title)
         {
+            Console.WriteLine($"Söker efter spel med titel: {title}");
+            if (string.IsNullOrEmpty(title))
+                return BadRequest("Title is required for search.");
+
             var games = await _gamesRepository.GetGameByTitleAsync(title);
             if (games is null)
                 return BadRequest("Spelet hittades inte");

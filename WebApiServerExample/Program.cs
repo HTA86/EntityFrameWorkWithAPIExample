@@ -20,9 +20,10 @@ namespace WebApiServer
             builder.Services.AddOpenApi();
 
 
-            // Lägg till alla services här (inkl repositories, det är också en service). 
-            // Se även till att DbContext har rätt connection string
-            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\HBGROCA\Desktop\Sideprojects\Data\Data\DataBaseLocal.mdf;Integrated Security=True;Connect Timeout=30"));
+            // Lï¿½gg till alla services hï¿½r (inkl repositories, det ï¿½r ocksï¿½ en service). 
+            // Se ï¿½ven till att DbContext har rï¿½tt connection string
+            //builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\HBGROCA\Desktop\Sideprojects\Data\Data\DataBaseLocal.mdf;Integrated Security=True;Connect Timeout=30"));
+            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("Server=11.0.0.21;Database=demo;User Id=sa;Password=B2MTDZVUO1GTD1VSo1CDZVUO1VakedSO;TrustServerCertificate=True;"));
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 
 
@@ -31,13 +32,13 @@ namespace WebApiServer
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                // Aktivera Scalar om nugget packet är installerat.
-                // Denna kan du sen ansluta till via din webläsare.
+                // Aktivera Scalar om nugget packet ï¿½r installerat.
+                // Denna kan du sen ansluta till via din weblï¿½sare.
                 // https://localhost:7207/scalar/v1
 
-                // Inne på sidan klickar du på önskad API metod 
+                // Inne pï¿½ sidan klickar du pï¿½ ï¿½nskad API metod 
                 // och sen Test Request och sedan Send. Svaret
-                // får du direkt efter i rutan till höger.
+                // fï¿½r du direkt efter i rutan till hï¿½ger.
 
                 app.MapScalarApiReference();
 
