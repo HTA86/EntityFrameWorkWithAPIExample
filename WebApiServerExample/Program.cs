@@ -34,7 +34,7 @@ namespace WebApiServer
             {
                 // Aktivera Scalar om nugget packet �r installerat.
                 // Denna kan du sen ansluta till via din webl�sare.
-                // https://localhost:7207/scalar/v1
+                // http://localhost:5062/scalar/v1
 
                 // Inne p� sidan klickar du p� �nskad API metod 
                 // och sen Test Request och sedan Send. Svaret
