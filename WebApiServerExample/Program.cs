@@ -23,7 +23,7 @@ namespace WebApiServer
             // L�gg till alla services h�r (inkl repositories, det �r ocks� en service). 
             // Se �ven till att DbContext har r�tt connection string
             //builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\HBGROCA\Desktop\Sideprojects\Data\Data\DataBaseLocal.mdf;Integrated Security=True;Connect Timeout=30"));
-            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("Server=11.0.0.21;Database=demo;User Id=sa;Password=B2MTDZVUO1GTD1VSo1CDZVUO1VakedSO;TrustServerCertificate=True;"));
+            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("Server=11.0.0.21;Database=demo;User Id=demo;Password=demo;TrustServerCertificate=True;"));
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 
 

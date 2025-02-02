@@ -10,8 +10,7 @@ public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
 
         // OBS!
         // Ändra sökvägen till den lokala databasen så den matchar sökvägen på din dator.
-        //optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\HBGROCA\\Desktop\\Sideprojects\\Data\\Data\\DataBaseLocal.mdf;Integrated Security=True;Connect Timeout=30");
-        optionsBuilder.UseSqlServer("Server=11.0.0.21;Database=demo;User Id=sa;Password=B2MTDZVUO1GTD1VSo1CDZVUO1VakedSO;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\HBGROCA\\Desktop\\Sideprojects\\Data\\Data\\DataBaseLocal.mdf;Integrated Security=True;Connect Timeout=30");
 
         return new DataContext(optionsBuilder.Options);
     }
