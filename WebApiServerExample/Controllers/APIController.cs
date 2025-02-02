@@ -10,7 +10,7 @@ namespace WebApiServer.Controllers
     {
         // Hämta alla spel eller filtrera via title
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GameEntity>>> GetGamesAsync([FromQuery] string? title)
+        public async Task<ActionResult<IEnumerable<GameEntity>>> GetGamesAsync([FromQuery] string? title = null)
         {
 
             if (!string.IsNullOrEmpty(title))
